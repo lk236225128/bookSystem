@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add Book Page</title>
+</head>
+<body>
+
+<form action="/addBook/" method="POST">
+    <input id="bookName" name="bookName">
+    <input id="authorName" name="authorName">
+    <textarea id="introduction" name="introduction"></textarea>
+    <button class="btn btn-sm btn-primary btn-block" type="submit">保存</button>
+    {% csrf_token %}
+</form>
+
+
+</body>
+</html>
