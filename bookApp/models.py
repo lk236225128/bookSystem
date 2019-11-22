@@ -4,9 +4,9 @@ from datetime import datetime
 
 # Create your models here.
 class Book(models.Model):
-    bookName=models.CharField(max_length=20,verbose_name=u"书名")
+    bookName=models.CharField(max_length=30,verbose_name=u"书名")
     authorName=models.CharField(max_length=20,verbose_name=u"作者")
-    introduction=models.CharField(max_length=20,verbose_name=u"简介")
+    introduction=models.CharField(max_length=100,verbose_name=u"简介")
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
 
     class Meta:

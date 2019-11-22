@@ -9,7 +9,7 @@ from .models import Book
 
 def index(request):
     # return HttpResponse("hello")
-    return render(request, 'bookList.html')
+    pass
 
 
 class BookListView(View):
@@ -48,7 +48,11 @@ class AddBookView(View):
         book.authorName = authorName
         book.introduction = introduction
         book.save()
-        return HttpResponse('图书添加成功')
+        all_books = Book.objects.all()
+        return render(request, 'bookList.html', {
+            "all_books": all_books,
+        })
+
 
 class UpdateBookView(View):
     def get(self, request):
@@ -62,7 +66,7 @@ class UpdateBookView(View):
             return HttpResponse('未查询到图书ID')
 
     def post(self, request):
-        id = request.GET.get('id', None)
+        id = int(request.GET.get('id', 1))
         bookName = request.POST.get('bookName', None)
         authorName = request.POST.get('authorName', None)
         introduction = request.POST.get('introduction', None)
@@ -72,17 +76,23 @@ class UpdateBookView(View):
             book.authorName = authorName
             book.introduction = introduction
             book.save()
-            return HttpResponse('图书添加成功')
+            all_books = Book.objects.all()
+            return render(request, 'bookList.html', {
+                "all_books": all_books,
+            })
         else:
             return HttpResponse('未查询到图书ID')
-
 
 
 class DelBookView(View):
     def get(self, request):
         id = request.GET.get('id', None)
-        book=Book.objects.get(pk=id)
-        book.delete()
-        return HttpResponse('图书删除成功')
-
-
+        if id:
+            book = Book.objects.get(pk=id)
+            book.delete()
+            all_books = Book.objects.all()
+            return render(request, 'bookList.html', {
+                "all_books": all_books,
+            })
+        else:
+            return HttpResponse('未查询到图书ID')
